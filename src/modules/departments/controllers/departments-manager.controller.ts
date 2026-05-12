@@ -3,11 +3,17 @@ import { DepartmentsManagerService } from '../services/departments-manager.servi
 import { CreateDepartmentDto } from '../dto/create-department.dto';
 import { UpdateDepartmentDto } from '../dto/update-department.dto';
 import { Department } from '../entities/department.entity';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { Roles } from 'src/modules/auth/decorators/roles.decorator';
+import { Role } from 'src/shared/enums/user-role.enum';
 
 /**
  * کنترلر ادمین برای مدیریت دپارتمان‌ها
  * مسیرهای CRUD را ارائه می‌دهد
  */
+
+@ApiBearerAuth()
+@Roles(Role.MANAGER)
 // api.hrsystem.ir/manager
 @Controller('manager/departments')
 export class DepartmentsManagerController {
