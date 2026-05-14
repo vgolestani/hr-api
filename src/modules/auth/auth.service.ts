@@ -85,12 +85,12 @@ export class AuthService {
             .andWhere('rt.revokedAt IS NULL')
             .getMany()
 
-        if (!tokens.length) throw new BadRequestException("توکن شما معتبر نیست")
-
+        let isValidRefreshToken = false
         for (const rt of tokens) {
             const match = await bcrypt.compare(providedRefreshToken, rt.tokenHash)
 
             if (match) {
+                isValidRefreshToken = true
                 rt.revokedAt = new Date()
                 await this.rtRepo.save(rt)
                 const user = rt.user
@@ -122,6 +122,7 @@ export class AuthService {
 
             }
         }
+        if (!isValidRefreshToken) throw new BadRequestException('توکن شما معتبر نیست')
     }
 
     async logout(userId: number) {

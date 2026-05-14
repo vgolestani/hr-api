@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './modules/auth/guards/roles.guard';
+import { AttendancesModule } from './modules/attendances/attendances.module';
 
 @Module({
   imports: [
@@ -30,12 +31,13 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         synchronize: configService.get('DB_SYNCHRONIZE', 'true') === 'true'
       }),
-      inject:[ConfigService]
+      inject: [ConfigService]
     }),
 
     //import project modules
     AuthModule,
     DepartmentsModule,
+    AttendancesModule,
 
   ],
   controllers: [AppController],
@@ -45,7 +47,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
       provide: APP_GUARD,
       useClass: JwtAuthGuard
     },
-        {
+    {
       provide: APP_GUARD,
       useClass: RolesGuard
     }
