@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { Roles } from "../auth/decorators/roles.decorator";
-import { Role } from "src/shared/enums/user-role.enum";
+import { Role } from "../../shared/enums/user-role.enum";
 import { ApiBearerAuth } from "@nestjs/swagger";
 import { AttendanceEmployeeService } from "./attendance-employee.service";
 import { CheckInOutDto } from "./dto/check-in-out-dto";
-import { User } from "src/common/decorators/user.decorator";
+import { User } from "../../common/decorators/user.decorator";
 import { FilterAttendanceDto } from "./dto/filter-attendance.dto";
 import { Attendance } from "./entities/attendance.entity";
 
